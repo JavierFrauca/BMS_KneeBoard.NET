@@ -1,0 +1,13 @@
+C:\Users\jfrauca\source\repos\BMS_http_KneeBoard\BMS_http_KneeBoard\bin\Release\BMS_http_KneeBoard.exe.config
+C:\Users\jfrauca\source\repos\BMS_http_KneeBoard\BMS_http_KneeBoard\bin\Release\BMS_http_KneeBoard.exe
+C:\Users\jfrauca\source\repos\BMS_http_KneeBoard\BMS_http_KneeBoard\bin\Release\BMS_http_KneeBoard.pdb
+C:\Users\jfrauca\source\repos\BMS_http_KneeBoard\BMS_http_KneeBoard\bin\Release\BMS_http_KneeBoard.xml
+C:\Users\jfrauca\source\repos\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Release\BMS_http_KneeBoard.vbproj.AssemblyReference.cache
+C:\Users\jfrauca\source\repos\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Release\BMS_http_KneeBoard.vbproj.SuggestedBindingRedirects.cache
+C:\Users\jfrauca\source\repos\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Release\BMS_http_KneeBoard.Form1.resources
+C:\Users\jfrauca\source\repos\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Release\BMS_http_KneeBoard.Resources.resources
+C:\Users\jfrauca\source\repos\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Release\BMS_http_KneeBoard.vbproj.GenerateResource.cache
+C:\Users\jfrauca\source\repos\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Release\BMS_http_KneeBoard.vbproj.CoreCompileInputs.cache
+C:\Users\jfrauca\source\repos\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Release\BMS_http_KneeBoard.exe
+C:\Users\jfrauca\source\repos\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Release\BMS_http_KneeBoard.xml
+C:\Users\jfrauca\source\repos\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Release\BMS_http_KneeBoard.pdb
