@@ -93,11 +93,15 @@ Public Class Form1
                                     Case "Dep Tower:"
                                         'ahora localiza la base, esto tiene truco, uso la funcion que localiza el mapa, me dara el path
                                         GetTeatherName = FindFolder(My.Settings.RutaBMS, Replace(MtrSplitBase(2), " Tower", "")).ToUpper
-                                        GetTeatherName = Mid(GetTeatherName, 1, GetTeatherName.IndexOf("\DOCS\"))
-                                        If GetTeatherName.IndexOf("\DATA\") < 0 Then
-                                            Return "KOREA"
+                                        If GetTeatherName.Length > 0 Then
+                                            GetTeatherName = Mid(GetTeatherName, 1, GetTeatherName.IndexOf("\DOCS\"))
+                                            If GetTeatherName.IndexOf("\DATA\") < 0 Then
+                                                Return "KOREA"
+                                            Else
+                                                Return GetTeatherName
+                                            End If
                                         Else
-                                            Return GetTeatherName
+                                            Return ""
                                         End If
                                 End Select
                             End If
@@ -417,8 +421,7 @@ Public Class Form1
     End Function
     Private Sub IncludeAirFields(ByRef html As StringBuilder, htmlindex As StringBuilder, BaseDEP As String, BaseARR As String, BaseALT As String)
         Dim SubHTML As New StringBuilder
-        SubHTML.Append("<tr><td>")
-        SubHTML.Append("<h2>Airfields:</h2>")
+        Call FillTitle(html, False, "Airfields:")
         SubHTML.Append("<li>" & BaseDEP & "</li>")
         Call LocalizaFicheroBase("Departure Airbase", BaseDEP, html, htmlindex)
         If BaseARR <> BaseDEP Then

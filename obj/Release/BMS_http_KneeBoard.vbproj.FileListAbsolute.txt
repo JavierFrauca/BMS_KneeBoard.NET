@@ -11,3 +11,15 @@ C:\Users\jfrauca\source\repos\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Release\
 C:\Users\jfrauca\source\repos\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Release\BMS_http_KneeBoard.exe
 C:\Users\jfrauca\source\repos\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Release\BMS_http_KneeBoard.xml
 C:\Users\jfrauca\source\repos\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Release\BMS_http_KneeBoard.pdb
+E:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\bin\Release\BMS_http_KneeBoard.exe.config
+E:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\bin\Release\BMS_http_KneeBoard.exe
+E:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\bin\Release\BMS_http_KneeBoard.pdb
+E:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\bin\Release\BMS_http_KneeBoard.xml
+E:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Release\BMS_http_KneeBoard.vbproj.AssemblyReference.cache
+E:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Release\BMS_http_KneeBoard.Form1.resources
+E:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Release\BMS_http_KneeBoard.Resources.resources
+E:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Release\BMS_http_KneeBoard.vbproj.GenerateResource.cache
+E:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Release\BMS_http_KneeBoard.vbproj.CoreCompileInputs.cache
+E:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Release\BMS_http_KneeBoard.exe
+E:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Release\BMS_http_KneeBoard.xml
+E:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Release\BMS_http_KneeBoard.pdb

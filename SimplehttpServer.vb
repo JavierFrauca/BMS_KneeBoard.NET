@@ -55,16 +55,20 @@ Public Class SimpleHttpServer
     Private Sub ServerLoop()
 
         While True
-            Dim context As HttpListenerContext = listener.GetContext()
-            Dim response As HttpListenerResponse = context.Response
-            'Crea una respuesta básica
-            Dim buffer As Byte() = System.Text.Encoding.UTF8.GetBytes(mvarhtml)
-            'Envía la respuesta al cliente
-            response.ContentType = "text/html"
-            response.ContentLength64 = buffer.Length
-            Dim output As System.IO.Stream = response.OutputStream
-            output.Write(buffer, 0, buffer.Length)
-            output.Close()
+            Try
+                Dim context As HttpListenerContext = listener.GetContext()
+                Dim response As HttpListenerResponse = context.Response
+                'Crea una respuesta básica
+                Dim buffer As Byte() = System.Text.Encoding.UTF8.GetBytes(mvarhtml)
+                'Envía la respuesta al cliente
+                response.ContentType = "text/html"
+                response.ContentLength64 = buffer.Length
+                Dim output As System.IO.Stream = response.OutputStream
+                output.Write(buffer, 0, buffer.Length)
+                output.Close()
+            Catch ex As Exception
+                'ignoralo es un error
+            End Try
         End While
     End Sub
 
