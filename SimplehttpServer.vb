@@ -26,6 +26,12 @@ Public Class SimpleHttpServer
             Return mvarState
         End Get
     End Property
+    Private mvarMessage As String = ""
+    Public ReadOnly Property Message() As String
+        Get
+            Return mvarMessage
+        End Get
+    End Property
 
     Private listener As HttpListener
     Private serverThread As New Thread(AddressOf ServerLoop)
@@ -46,14 +52,15 @@ Public Class SimpleHttpServer
             mvarState = 1
             'Crea un nuevo hilo y ejecuta el servidor en ese hilo
             serverThread.Start()
+            mvarMessage = "Servidor http iniciado"
         Catch ex As Exception
             mvarState = 0
+            mvarMessage = ex.Message
         End Try
 
     End Sub
 
     Private Sub ServerLoop()
-
         While True
             Try
                 Dim context As HttpListenerContext = listener.GetContext()

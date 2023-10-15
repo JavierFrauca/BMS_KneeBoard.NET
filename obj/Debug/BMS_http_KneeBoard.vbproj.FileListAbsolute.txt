@@ -36,3 +36,15 @@ E:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Debug\BMS_http_KneeBoard.vbpr
 E:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Debug\BMS_http_KneeBoard.exe
 E:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Debug\BMS_http_KneeBoard.xml
 E:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Debug\BMS_http_KneeBoard.pdb
+D:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\bin\Debug\BMS_http_KneeBoard.exe.config
+D:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\bin\Debug\BMS_http_KneeBoard.exe
+D:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\bin\Debug\BMS_http_KneeBoard.pdb
+D:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\bin\Debug\BMS_http_KneeBoard.xml
+D:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Debug\BMS_http_KneeBoard.vbproj.AssemblyReference.cache
+D:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Debug\BMS_http_KneeBoard.Form1.resources
+D:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Debug\BMS_http_KneeBoard.Resources.resources
+D:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Debug\BMS_http_KneeBoard.vbproj.GenerateResource.cache
+D:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Debug\BMS_http_KneeBoard.vbproj.CoreCompileInputs.cache
+D:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Debug\BMS_http_KneeBoard.exe
+D:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Debug\BMS_http_KneeBoard.xml
+D:\Hobby\BMS_http_KneeBoard\BMS_http_KneeBoard\obj\Debug\BMS_http_KneeBoard.pdb

@@ -7,16 +7,17 @@ Imports System.Net.WebRequestMethods
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports System.Collections.Specialized.BitVector32
 Imports System.Runtime.Remoting.Messaging
+Imports System.Threading
 
 Public Class Form1
     Public LastFileDateBriefing As Date
     Public LastFileDateINI As Date
     Public StrBriefingSubFolder As String = "\User\Briefings\"
     Public StrConfigSubFolder As String = "\User\Config\"
-    Dim Server As New SimpleHttpServer
+    Dim ThreadServer As New SimpleHttpServer
     Dim Colores(20) As Color
     Dim IntColor As Integer
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Async Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         My.Settings.Reload()
         Colores(0) = Color.Green
         Colores(1) = Color.Gray
@@ -42,27 +43,17 @@ Public Class Form1
         If My.Settings.PuertoHTTP.Trim = "" Then My.Settings.PuertoHTTP = "8080"
         If My.Settings.RutaBMS.Trim = "" Then My.Settings.RutaBMS = "C:\Falcon BMS 4.37"
         My.Settings.Save()
-        Me.TextBox1.Text = My.Settings.PuertoHTTP
+        Me.ButtonServerStart.Enabled = False
+        Me.ButtonServerStop.Enabled = False
+        Me.TextBoxServerPort.Text = My.Settings.PuertoHTTP
         Me.TextBoxMainFolder.Text = My.Settings.RutaBMS
-        Timer1.Interval = 10000 ' Establecer el intervalo en 1 segundo
-        Timer1.Enabled = True ' Iniciar la ejecución del código
-        Server.ServerPort = My.Settings.PuertoHTTP
-        Server.Html = "No se ha generado contenido"
-        Server.Start()
-        CheckServerStatus()
-        If Server.State = 1 Then Call MakeBriefing()
-    End Sub
-    Private Sub CheckServerStatus()
-        If Server.State = 0 Then
-            Me.TextBox1.Enabled = True
-            Me.Button2.Enabled = True
-            Me.Button1.Enabled = False
-            LabelServerStatus.Text = "Servidor fuera de linea"
-        Else
-            Me.TextBox1.Enabled = False
-            Me.Button2.Enabled = False
-            Me.Button1.Enabled = True
-            LabelServerStatus.Text = "Servidor On-Line"
+        TimerServerStatus.Interval = 1000 ' Establecer el intervalo en 1 segundo
+        TimerServerStatus.Enabled = True ' Iniciar la ejecución del código
+        ThreadServer.ServerPort = My.Settings.PuertoHTTP
+        ThreadServer.Html = "No se ha generado contenido"
+        ThreadServer.Start()
+        If ThreadServer.State = 1 Then
+            Call MakeBriefing()
         End If
     End Sub
     Private Sub ButtonClose_Click(sender As Object, e As EventArgs) Handles ButtonClose.Click
@@ -129,6 +120,7 @@ Public Class Form1
         Dim StartLat As Single = 0
         If System.IO.File.Exists(Fichero) = False Then Return "No se localizó el fichero"
         Dim MtrBriefingFile() As String = System.IO.File.ReadAllLines(Fichero)
+        'en el futuro se agregaran las coordenadas gps de los wpt, esta rutina traduce las coordenadas de bms a lat-lon
         Dim TeatherName As String = GetTeatherName(MtrBriefingFile)
         If TeatherName.ToUpper.IndexOf("Aegean".ToUpper) >= 0 Then
             StartLat = 33.41
@@ -515,11 +507,23 @@ Public Class Form1
         End If
         html.Append("</tr></td>")
     End Sub
-    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        Call MakeBriefing()
+    Private Sub TimerServerStatus_Tick(sender As Object, e As EventArgs) Handles TimerServerStatus.Tick
+        Dim task As Task = Task.Run(AddressOf MakeBriefing)
+        If ThreadServer.State = 0 Then
+            Me.TextBoxServerPort.Enabled = True
+            Me.ButtonServerStart.Enabled = True
+            Me.ButtonServerStop.Enabled = False
+            LabelServerStatus.Text = "Servidor fuera de linea." & vbCrLf & ThreadServer.Message
+        Else
+            Me.TextBoxServerPort.Enabled = False
+            Me.ButtonServerStart.Enabled = False
+            Me.ButtonServerStop.Enabled = True
+            LabelServerStatus.Text = "Servidor On-Line"
+        End If
     End Sub
-    Private Sub MakeBriefing()
-        Timer1.Enabled = False
+
+    Private Async Function MakeBriefing() As Task
+        TimerServerStatus.Enabled = False
         Try
             '---------------------------------------------------------------------------------
             'el ini es el datacard, si se ha modificado, fuerza el redibujado del html
@@ -535,16 +539,16 @@ Public Class Form1
             If LastFileDateBriefing <> FileDateTime(StrFicheroBriefing) Then
                 'si se ha modificado algun fichero se actualiza el html
                 LastFileDateBriefing = FileDateTime(StrFicheroBriefing)
-                Server.Html = ProcesarFicheroBriefing(StrFicheroBriefing)
-                LabelLastBriefing.Text = LastFileDateBriefing.ToString("yyyy-MM-dd HH:mm:ss")
+                ThreadServer.Html = ProcesarFicheroBriefing(StrFicheroBriefing)
+                LabelLastBriefing.Text = "Última actualización el " & LastFileDateBriefing.ToString("yyyy-MM-dd HH:mm:ss")
             End If
-            CheckServerStatus()
         Catch ex As Exception
-            LabelLastBriefing.Text = "Error generando briefing, " & Err.Description
+            LabelLastBriefing.Text = "Error generando briefing, " & ex.Message
             LastFileDateBriefing = Nothing
         End Try
-        Timer1.Enabled = True
-    End Sub
+        Await Task.Delay(3000)
+        TimerServerStatus.Enabled = True
+    End Function
     Private Function FindFolder(ByVal folderPath As String, ByVal folderName As String) As String
         ' Crear una instancia de DirectoryInfo para la carpeta principal
         Dim folderInfo As New DirectoryInfo(folderPath)
@@ -579,22 +583,22 @@ Public Class Form1
     End Function
 
     Private Sub Form1_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
-        If Server.State = 1 Then Server.Stop()
+        If ThreadServer.State = 1 Then ThreadServer.Stop()
     End Sub
 
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
-        My.Settings.PuertoHTTP = TextBox1.Text
+    Private Sub TextBoxServerPort_TextChanged(sender As Object, e As EventArgs) Handles TextBoxServerPort.TextChanged
+        My.Settings.PuertoHTTP = TextBoxServerPort.Text
         My.Settings.Save()
-        If Server.State = 1 Then
-            Server.Stop()
-            Server.ServerPort = My.Settings.PuertoHTTP
-            Server.Start()
+        If ThreadServer.State = 1 Then
+            ThreadServer.Stop()
+            ThreadServer.ServerPort = My.Settings.PuertoHTTP
+            ThreadServer.Start()
         Else
-            Server.ServerPort = My.Settings.PuertoHTTP
+            ThreadServer.ServerPort = My.Settings.PuertoHTTP
         End If
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+    Private Sub ButtonSelectFolder_Click(sender As Object, e As EventArgs) Handles ButtonSelectFolder.Click
         Dim folderBrowserDialog1 As New FolderBrowserDialog()
         'Muestra el cuadro de diálogo para seleccionar una carpeta
         Dim result As DialogResult = folderBrowserDialog1.ShowDialog()
@@ -614,30 +618,35 @@ Public Class Form1
         End
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Button1.Enabled = False
-        Server.Stop()
+    Private Sub ButtonServerStop_Click(sender As Object, e As EventArgs) Handles ButtonServerStop.Click
+        ButtonServerStop.Enabled = False
+        ThreadServer.Stop()
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        Button2.Enabled = False
-        Server.Start()
+    Private Sub ButtonServerStart_Click(sender As Object, e As EventArgs) Handles ButtonServerStart.Click
+        LabelServerStatus.Text = "Iniciando el servidor..."
+        ButtonServerStart.Enabled = False
+        ThreadServer.Start()
     End Sub
 
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-        MakeBriefing()
+    Private Async Sub Button4_Click(sender As Object, e As EventArgs) Handles ButtonUpdate.Click
+        Me.Cursor = Cursors.WaitCursor
+        Await MakeBriefing()
+        Me.Cursor = Cursors.Default
     End Sub
 
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+    Private Sub ButtonExport_Click(sender As Object, e As EventArgs) Handles ButtonExport.Click
         SaveFileDialog1.Filter = "Archivos HTML (*.html)|*.html|Todos los archivos (*.*)|*.*"
         SaveFileDialog1.Title = "Guardar archivo HTML"
         SaveFileDialog1.FileName = "briefing.html"
         ' Muestra el cuadro de diálogo para guardar el archivo
         If SaveFileDialog1.ShowDialog() = DialogResult.OK Then
             ' Guarda el contenido de la variable en el archivo seleccionado
+            Me.Cursor = Cursors.WaitCursor
             Using sw As New StreamWriter(SaveFileDialog1.FileName)
-                sw.Write(Server.Html)
+                sw.Write(ThreadServer.Html)
             End Using
+            Me.Cursor = Cursors.Default
         End If
     End Sub
 

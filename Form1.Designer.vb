@@ -27,18 +27,17 @@ Partial Class Form1
         Me.LabelMainFolder = New System.Windows.Forms.Label()
         Me.ButtonClose = New System.Windows.Forms.Button()
         Me.TextBoxMainFolder = New System.Windows.Forms.TextBox()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.TimerServerStatus = New System.Windows.Forms.Timer(Me.components)
         Me.LabelLastBriefing = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TextBoxServerPort = New System.Windows.Forms.TextBox()
         Me.LabelServerStatus = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Button3 = New System.Windows.Forms.Button()
+        Me.ButtonServerStop = New System.Windows.Forms.Button()
+        Me.ButtonServerStart = New System.Windows.Forms.Button()
+        Me.ButtonSelectFolder = New System.Windows.Forms.Button()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
+        Me.ButtonUpdate = New System.Windows.Forms.Button()
+        Me.ButtonExport = New System.Windows.Forms.Button()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -69,14 +68,14 @@ Partial Class Form1
         Me.TextBoxMainFolder.Size = New System.Drawing.Size(365, 20)
         Me.TextBoxMainFolder.TabIndex = 3
         '
-        'Timer1
+        'TimerServerStatus
         '
         '
         'LabelLastBriefing
         '
-        Me.LabelLastBriefing.Location = New System.Drawing.Point(16, 128)
+        Me.LabelLastBriefing.Location = New System.Drawing.Point(16, 137)
         Me.LabelLastBriefing.Name = "LabelLastBriefing"
-        Me.LabelLastBriefing.Size = New System.Drawing.Size(653, 163)
+        Me.LabelLastBriefing.Size = New System.Drawing.Size(653, 154)
         Me.LabelLastBriefing.TabIndex = 4
         Me.LabelLastBriefing.Text = "No se ha generado"
         '
@@ -89,75 +88,67 @@ Partial Class Form1
         Me.Label1.TabIndex = 5
         Me.Label1.Text = "Puerto http"
         '
-        'TextBox1
+        'TextBoxServerPort
         '
-        Me.TextBox1.Location = New System.Drawing.Point(415, 78)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(92, 20)
-        Me.TextBox1.TabIndex = 6
-        Me.TextBox1.Text = "8080"
-        Me.TextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.TextBoxServerPort.Location = New System.Drawing.Point(415, 78)
+        Me.TextBoxServerPort.Name = "TextBoxServerPort"
+        Me.TextBoxServerPort.Size = New System.Drawing.Size(92, 20)
+        Me.TextBoxServerPort.TabIndex = 6
+        Me.TextBoxServerPort.Text = "8080"
+        Me.TextBoxServerPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'LabelServerStatus
         '
-        Me.LabelServerStatus.Location = New System.Drawing.Point(290, 105)
+        Me.LabelServerStatus.Location = New System.Drawing.Point(415, 101)
         Me.LabelServerStatus.Name = "LabelServerStatus"
-        Me.LabelServerStatus.Size = New System.Drawing.Size(137, 23)
+        Me.LabelServerStatus.Size = New System.Drawing.Size(253, 36)
         Me.LabelServerStatus.TabIndex = 7
+        Me.LabelServerStatus.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
-        'Button1
+        'ButtonServerStop
         '
-        Me.Button1.Location = New System.Drawing.Point(594, 64)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(74, 34)
-        Me.Button1.TabIndex = 8
-        Me.Button1.Text = "Stop"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.ButtonServerStop.Location = New System.Drawing.Point(594, 64)
+        Me.ButtonServerStop.Name = "ButtonServerStop"
+        Me.ButtonServerStop.Size = New System.Drawing.Size(74, 34)
+        Me.ButtonServerStop.TabIndex = 8
+        Me.ButtonServerStop.Text = "Stop"
+        Me.ButtonServerStop.UseVisualStyleBackColor = True
         '
-        'Button2
+        'ButtonServerStart
         '
-        Me.Button2.Location = New System.Drawing.Point(513, 64)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 34)
-        Me.Button2.TabIndex = 9
-        Me.Button2.Text = "Start"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.ButtonServerStart.Location = New System.Drawing.Point(513, 64)
+        Me.ButtonServerStart.Name = "ButtonServerStart"
+        Me.ButtonServerStart.Size = New System.Drawing.Size(75, 34)
+        Me.ButtonServerStart.TabIndex = 9
+        Me.ButtonServerStart.Text = "Start"
+        Me.ButtonServerStart.UseVisualStyleBackColor = True
         '
-        'Label2
+        'ButtonSelectFolder
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(16, 105)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(156, 13)
-        Me.Label2.TabIndex = 10
-        Me.Label2.Text = "Ultima actualización automática"
+        Me.ButtonSelectFolder.Location = New System.Drawing.Point(387, 76)
+        Me.ButtonSelectFolder.Name = "ButtonSelectFolder"
+        Me.ButtonSelectFolder.Size = New System.Drawing.Size(22, 23)
+        Me.ButtonSelectFolder.TabIndex = 11
+        Me.ButtonSelectFolder.Text = "..."
+        Me.ButtonSelectFolder.UseVisualStyleBackColor = True
         '
-        'Button3
+        'ButtonUpdate
         '
-        Me.Button3.Location = New System.Drawing.Point(387, 76)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(22, 23)
-        Me.Button3.TabIndex = 11
-        Me.Button3.Text = "..."
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.ButtonUpdate.Location = New System.Drawing.Point(432, 294)
+        Me.ButtonUpdate.Name = "ButtonUpdate"
+        Me.ButtonUpdate.Size = New System.Drawing.Size(75, 34)
+        Me.ButtonUpdate.TabIndex = 12
+        Me.ButtonUpdate.Text = "Actualizar"
+        Me.ButtonUpdate.UseVisualStyleBackColor = True
         '
-        'Button4
+        'ButtonExport
         '
-        Me.Button4.Location = New System.Drawing.Point(432, 294)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(75, 34)
-        Me.Button4.TabIndex = 12
-        Me.Button4.Text = "Actualizar"
-        Me.Button4.UseVisualStyleBackColor = True
-        '
-        'Button5
-        '
-        Me.Button5.Location = New System.Drawing.Point(513, 294)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(75, 34)
-        Me.Button5.TabIndex = 13
-        Me.Button5.Text = "Exportar"
-        Me.Button5.UseVisualStyleBackColor = True
+        Me.ButtonExport.Location = New System.Drawing.Point(513, 294)
+        Me.ButtonExport.Name = "ButtonExport"
+        Me.ButtonExport.Size = New System.Drawing.Size(75, 34)
+        Me.ButtonExport.TabIndex = 13
+        Me.ButtonExport.Text = "Exportar"
+        Me.ButtonExport.UseVisualStyleBackColor = True
         '
         'PictureBox1
         '
@@ -175,14 +166,13 @@ Partial Class Form1
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(681, 340)
         Me.Controls.Add(Me.PictureBox1)
-        Me.Controls.Add(Me.Button5)
-        Me.Controls.Add(Me.Button4)
-        Me.Controls.Add(Me.Button3)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.ButtonExport)
+        Me.Controls.Add(Me.ButtonUpdate)
+        Me.Controls.Add(Me.ButtonSelectFolder)
+        Me.Controls.Add(Me.ButtonServerStart)
+        Me.Controls.Add(Me.ButtonServerStop)
         Me.Controls.Add(Me.LabelServerStatus)
-        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.TextBoxServerPort)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.LabelLastBriefing)
         Me.Controls.Add(Me.TextBoxMainFolder)
@@ -200,18 +190,17 @@ Partial Class Form1
     Friend WithEvents LabelMainFolder As Label
     Friend WithEvents ButtonClose As Button
     Friend WithEvents TextBoxMainFolder As TextBox
-    Friend WithEvents Timer1 As Timer
+    Friend WithEvents TimerServerStatus As Timer
     Friend WithEvents LabelLastBriefing As Label
     Friend WithEvents Label1 As Label
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents TextBoxServerPort As TextBox
     Friend WithEvents LabelServerStatus As Label
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Button3 As Button
+    Friend WithEvents ButtonServerStop As Button
+    Friend WithEvents ButtonServerStart As Button
+    Friend WithEvents ButtonSelectFolder As Button
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
-    Friend WithEvents Button4 As Button
-    Friend WithEvents Button5 As Button
+    Friend WithEvents ButtonUpdate As Button
+    Friend WithEvents ButtonExport As Button
     Friend WithEvents SaveFileDialog1 As SaveFileDialog
     Friend WithEvents PictureBox1 As PictureBox
 End Class
